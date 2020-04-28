@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using BackNetCore.Data;
 using BackNetCore.Models;
 
@@ -13,22 +15,28 @@ namespace BackNetCore.Services
     }
     public void AddBook(Book book)
     {
-      throw new System.NotImplementedException();
+      _db.Add(book);
+      _db.SaveChanges();
     }
 
     public void DeleteBook(int bookId)
     {
-      throw new System.NotImplementedException();
+      var bookToDelete = _db.Books.Find(bookId);
+      if (bookToDelete != null)
+      {
+        _db.Remove(bookToDelete);
+      }
+      throw new InvalidOperationException("Can't delete book that doesnt exist");
     }
 
     public List<Book> GetAllBooks()
     {
-      throw new System.NotImplementedException();
+      return _db.Books.ToList();
     }
 
-    public BookService GetBook(int bookId)
+    public Book GetBook(int bookId)
     {
-      throw new System.NotImplementedException();
+      return _db.Books.Find(bookId);
     }
   }
 }

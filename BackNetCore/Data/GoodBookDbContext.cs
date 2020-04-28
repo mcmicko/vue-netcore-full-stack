@@ -5,8 +5,7 @@ namespace BackNetCore.Data
 {
   public class GoodBookDbContext : DbContext
   {
-    public GoodBookDbContext() { }
-    public GoodBookDbContext(DbContextOptions options) : base() { }
+    public GoodBookDbContext(DbContextOptions<GoodBookDbContext> options) : base(options) { }
 
     public virtual DbSet<Book> Books { get; set; }
     public virtual DbSet<BookReview> BookReviews { get; set; }
