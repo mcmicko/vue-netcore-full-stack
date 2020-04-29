@@ -21,6 +21,7 @@ namespace BackNetCore
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddCors();
       services.AddControllers();
 
       services.AddDbContext<GoodBookDbContext>(opts =>
@@ -28,7 +29,7 @@ namespace BackNetCore
         opts.UseNpgsql(Configuration.GetConnectionString("goodbooks.dev"));
         opts.EnableDetailedErrors();
       });
-      services.AddScoped<IBookService, BookService>();
+      services.AddTransient<IBookService, BookService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,13 +40,13 @@ namespace BackNetCore
         app.UseDeveloperExceptionPage();
       }
 
+      app.UseRouting();
       app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+      app.UseAuthorization();
 
       app.UseHttpsRedirection();
 
-      app.UseRouting();
 
-      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {
