@@ -29,6 +29,11 @@ namespace BackNetCore.Controllers
     [HttpPost]
     public ActionResult CreateBook([FromBody] NewBookRequest bookRequest)
     {
+      if (!ModelState.IsValid)
+      {
+        return BadRequest("Model state note valid");
+      }
+
       var now = DateTime.UtcNow;
       var book = new Book
       {
@@ -40,6 +45,20 @@ namespace BackNetCore.Controllers
       _bookService.AddBook(book);
 
       return Ok($"Book created: {book.Title}");
+    }
+
+    [HttpGet("{bookId}")]
+    public ActionResult GetBook(int bookId)
+    {
+      var book = _bookService.GetBook(bookId);
+      return Ok(book);
+    }
+
+    [HttpDelete("{bookId}")]
+    public ActionResult deleteBook(int bookId)
+    {
+      _bookService.DeleteBook(bookId);
+      return Ok("book deleted");
     }
   }
 }

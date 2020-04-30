@@ -25,8 +25,12 @@ namespace BackNetCore.Services
       if (bookToDelete != null)
       {
         _db.Remove(bookToDelete);
+        _db.SaveChanges();
       }
-      throw new InvalidOperationException("Can't delete book that doesnt exist");
+      else
+      {
+        throw new InvalidOperationException("Can't delete book that doesnt exist");
+      }
     }
 
     public List<Book> GetAllBooks()
