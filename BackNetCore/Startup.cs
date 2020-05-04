@@ -41,7 +41,7 @@ namespace BackNetCore
       }
 
       app.UseRouting();
-      app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+      app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:8080"));
       app.UseAuthorization();
 
       app.UseHttpsRedirection();
