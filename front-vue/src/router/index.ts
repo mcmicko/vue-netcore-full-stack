@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Books from '../views/Books.vue'
+import AddBook from '../views/AddBook.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes: Array<RouteConfig> = [
     path: '/my-books',
     name: 'Books',
     component: Books
+  },
+  {
+    path: '/add-books',
+    name: 'AddBook',
+    component: AddBook
   }
 ]
 

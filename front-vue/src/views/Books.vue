@@ -1,20 +1,23 @@
 <template>
   <div class="books-container">
     <h1>My Books</h1>
-    <div v-if="myBooks.length">{{myBooks}}</div>
+    <div v-if="myBooks.length">
+      <Book :book="book" v-for="book in myBooks" :key="book.id" />
+    </div>
   </div>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
 import IBook from "../types/Book";
+import Book from "../components/Book.vue";
 import BookService from "../service/book-service";
 
 const bookService = new BookService();
 
 @Component({
   name: "MyBooks",
-  components: {}
+  components: { Book }
 })
 export default class MyBooks extends Vue {
   //data
