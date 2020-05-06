@@ -2,7 +2,7 @@
   <div class="books-container">
     <h1>My Books</h1>
     <div v-if="myBooks.length">
-      <Book :book="book" v-for="book in myBooks" :key="book.id" />
+      <Book @deleted="getAllBooks" :book="book" v-for="book in myBooks" :key="book.id" />
     </div>
   </div>
 </template>
@@ -26,14 +26,16 @@ export default class MyBooks extends Vue {
   get bookCount() {
     return this.myBooks.length;
   }
-  //props
-  //methods
-  //lifecycle books
-  created() {
+
+  getAllBooks() {
     bookService
       .getAllBooks()
       .then(res => (this.myBooks = res))
       .catch(err => console.log(err));
+  }
+
+  created() {
+    this.getAllBooks();
   }
   //watchers
 }
